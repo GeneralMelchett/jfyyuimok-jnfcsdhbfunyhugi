@@ -1,0 +1,39 @@
+{# cryptologicus/templates/cryptologicus/article_index_page.html #}
+{% extends "cryptologicus/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}Articles – Cryptologicus{% endblock %}
+
+{% block content %}
+<main class="py-12 md:py-16 bg-slate-50">
+  <div class="container mx-auto px-4 flex flex-col lg:flex-row gap-8">
+
+    {# Sidebar filters #}
+    {% include "cryptologicus/partials/sidebar/article_filters.html" %}
+
+    <section class="flex-1">
+      <header class="mb-6">
+        <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2" style="font-family: 'Orbitron', sans-serif;">Articles</h1>
+        {% if active_filters.series or active_filters.difficulty or active_filters.tag %}
+          <p class="text-xs text-slate-500" style="font-family: 'Roboto', sans-serif;">
+            Filtering by
+            {% if active_filters.series %} series: <strong>{{ active_filters.series }}</strong>{% endif %}
+            {% if active_filters.difficulty %} difficulty: <strong>{{ active_filters.difficulty }}</strong>{% endif %}
+            {% if active_filters.tag %} tag: <strong>{{ active_filters.tag }}</strong>{% endif %}
+          </p>
+        {% endif %}
+      </header>
+
+      <div class="grid gap-12 md:grid-cols-2 xl:grid-cols-3">
+        {% for article in articles %}
+          {% with href=article.url title=article.title series_name=article.series_display series_url=article.get_series_url part_number=article.series_part difficulty=article.difficulty tags=article.tags_list persona=article.persona excerpt=article.summary_text|default:article.search_description|default:"" theme="light" featured=False compact=False %}
+            {% include "cryptologicus/partials/cards/article_card.html" %}
+          {% endwith %}
+        {% empty %}
+          <p class="text-sm text-slate-500" style="font-family: 'Roboto', sans-serif;">No articles match your filters yet.</p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %}

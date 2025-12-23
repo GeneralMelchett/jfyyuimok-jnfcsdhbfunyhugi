@@ -1,0 +1,560 @@
+@import "tailwindcss";
+
+@theme {
+  --shadow-emerald-br: 6px 6px 20px theme(colors.emerald.100 / 0.5);
+}
+/**
+ * Enable all tag color variants by explicitly listing them.
+ * This forces Tailwind JIT to include these classes.
+ */
+@layer utilities {
+  /* Dark mode backgrounds with opacity */
+  .bg-emerald-400\/20 {
+    background-color: rgb(52 211 153 / 0.2);
+  }
+
+  .bg-blue-400\/20 {
+    background-color: rgb(96 165 250 / 0.2);
+  }
+
+  .bg-purple-400\/20 {
+    background-color: rgb(192 132 252 / 0.2);
+  }
+
+  .bg-pink-400\/20 {
+    background-color: rgb(244 114 182 / 0.2);
+  }
+
+  .bg-indigo-400\/20 {
+    background-color: rgb(129 140 248 / 0.2);
+  }
+
+  .bg-cyan-400\/20 {
+    background-color: rgb(34 211 238 / 0.2);
+  }
+
+  .bg-teal-400\/20 {
+    background-color: rgb(45 212 191 / 0.2);
+  }
+
+  .bg-amber-400\/20 {
+    background-color: rgb(251 191 36 / 0.2);
+  }
+
+  .bg-rose-400\/20 {
+    background-color: rgb(251 113 133 / 0.2);
+  }
+
+  .bg-violet-400\/20 {
+    background-color: rgb(167 139 250 / 0.2);
+  }
+
+  .bg-sky-400\/20 {
+    background-color: rgb(56 189 248 / 0.2);
+  }
+
+  .bg-fuchsia-400\/20 {
+    background-color: rgb(232 121 249 / 0.2);
+  }
+
+  .bg-lime-400\/20 {
+    background-color: rgb(163 230 53 / 0.2);
+  }
+
+  .bg-orange-400\/20 {
+    background-color: rgb(251 146 60 / 0.2);
+  }
+
+  .bg-red-400\/20 {
+    background-color: rgb(248 113 113 / 0.2);
+  }
+
+  .bg-green-400\/20 {
+    background-color: rgb(74 222 128 / 0.2);
+  }
+
+  .bg-yellow-400\/20 {
+    background-color: rgb(250 204 21 / 0.2);
+  }
+
+  .bg-stone-400\/20 {
+    background-color: rgb(168 162 158 / 0.2);
+  }
+
+  .bg-zinc-400\/20 {
+    background-color: rgb(161 161 170 / 0.2);
+  }
+
+  .bg-slate-400\/20 {
+    background-color: rgb(148 163 184 / 0.2);
+  }
+
+  /* Dark mode text colors */
+  .text-emerald-300 {
+    color: rgb(110 231 183);
+  }
+
+  .text-blue-300 {
+    color: rgb(147 197 253);
+  }
+
+  .text-purple-300 {
+    color: rgb(216 180 254);
+  }
+
+  .text-pink-300 {
+    color: rgb(249 168 212);
+  }
+
+  .text-indigo-300 {
+    color: rgb(165 180 252);
+  }
+
+  .text-cyan-300 {
+    color: rgb(103 232 249);
+  }
+
+  .text-teal-300 {
+    color: rgb(94 234 212);
+  }
+
+  .text-amber-300 {
+    color: rgb(252 211 77);
+  }
+
+  .text-rose-300 {
+    color: rgb(253 164 175);
+  }
+
+  .text-violet-300 {
+    color: rgb(196 181 253);
+  }
+
+  .text-sky-300 {
+    color: rgb(125 211 252);
+  }
+
+  .text-fuchsia-300 {
+    color: rgb(240 171 252);
+  }
+
+  .text-lime-300 {
+    color: rgb(190 242 100);
+  }
+
+  .text-orange-300 {
+    color: rgb(253 186 116);
+  }
+
+  .text-red-300 {
+    color: rgb(252 165 165);
+  }
+
+  .text-green-300 {
+    color: rgb(134 239 172);
+  }
+
+  .text-yellow-300 {
+    color: rgb(253 224 71);
+  }
+
+  .text-stone-300 {
+    color: rgb(214 211 209);
+  }
+
+  .text-zinc-300 {
+    color: rgb(212 212 216);
+  }
+
+  .text-slate-300 {
+    color: rgb(203 213 225);
+  }
+
+  /* Dark mode borders with opacity */
+  .border-emerald-400\/30 {
+    border-color: rgb(52 211 153 / 0.3);
+  }
+
+  .border-blue-400\/30 {
+    border-color: rgb(96 165 250 / 0.3);
+  }
+
+  .border-purple-400\/30 {
+    border-color: rgb(192 132 252 / 0.3);
+  }
+
+  .border-pink-400\/30 {
+    border-color: rgb(244 114 182 / 0.3);
+  }
+
+  .border-indigo-400\/30 {
+    border-color: rgb(129 140 248 / 0.3);
+  }
+
+  .border-cyan-400\/30 {
+    border-color: rgb(34 211 238 / 0.3);
+  }
+
+  .border-teal-400\/30 {
+    border-color: rgb(45 212 191 / 0.3);
+  }
+
+  .border-amber-400\/30 {
+    border-color: rgb(251 191 36 / 0.3);
+  }
+
+  .border-rose-400\/30 {
+    border-color: rgb(251 113 133 / 0.3);
+  }
+
+  .border-violet-400\/30 {
+    border-color: rgb(167 139 250 / 0.3);
+  }
+
+  .border-sky-400\/30 {
+    border-color: rgb(56 189 248 / 0.3);
+  }
+
+  .border-fuchsia-400\/30 {
+    border-color: rgb(232 121 249 / 0.3);
+  }
+
+  .border-lime-400\/30 {
+    border-color: rgb(163 230 53 / 0.3);
+  }
+
+  .border-orange-400\/30 {
+    border-color: rgb(251 146 60 / 0.3);
+  }
+
+  .border-red-400\/30 {
+    border-color: rgb(248 113 113 / 0.3);
+  }
+
+  .border-green-400\/30 {
+    border-color: rgb(74 222 128 / 0.3);
+  }
+
+  .border-yellow-400\/30 {
+    border-color: rgb(250 204 21 / 0.3);
+  }
+
+  .border-stone-400\/30 {
+    border-color: rgb(168 162 158 / 0.3);
+  }
+
+  .border-zinc-400\/30 {
+    border-color: rgb(161 161 170 / 0.3);
+  }
+
+  .border-slate-400\/30 {
+    border-color: rgb(148 163 184 / 0.3);
+  }
+
+  /* Light mode backgrounds */
+  .bg-emerald-100 {
+    background-color: rgb(209 250 229);
+  }
+
+  .bg-blue-100 {
+    background-color: rgb(219 234 254);
+  }
+
+  .bg-purple-100 {
+    background-color: rgb(243 232 255);
+  }
+
+  .bg-pink-100 {
+    background-color: rgb(252 231 243);
+  }
+
+  .bg-indigo-100 {
+    background-color: rgb(224 231 255);
+  }
+
+  .bg-cyan-100 {
+    background-color: rgb(207 250 254);
+  }
+
+  .bg-teal-100 {
+    background-color: rgb(204 251 241);
+  }
+
+  .bg-amber-100 {
+    background-color: rgb(254 243 199);
+  }
+
+  .bg-rose-100 {
+    background-color: rgb(255 228 230);
+  }
+
+  .bg-violet-100 {
+    background-color: rgb(237 233 254);
+  }
+
+  .bg-sky-100 {
+    background-color: rgb(224 242 254);
+  }
+
+  .bg-fuchsia-100 {
+    background-color: rgb(250 232 255);
+  }
+
+  .bg-lime-100 {
+    background-color: rgb(236 252 203);
+  }
+
+  .bg-orange-100 {
+    background-color: rgb(255 237 213);
+  }
+
+  .bg-red-100 {
+    background-color: rgb(254 226 226);
+  }
+
+  .bg-green-100 {
+    background-color: rgb(220 252 231);
+  }
+
+  .bg-yellow-100 {
+    background-color: rgb(254 249 195);
+  }
+
+  .bg-stone-100 {
+    background-color: rgb(245 245 244);
+  }
+
+  .bg-zinc-100 {
+    background-color: rgb(244 244 245);
+  }
+
+  .bg-slate-100 {
+    background-color: rgb(241 245 249);
+  }
+
+  /* Light mode text colors */
+  .text-emerald-700 {
+    color: rgb(4 120 87);
+  }
+
+  .text-blue-700 {
+    color: rgb(29 78 216);
+  }
+
+  .text-purple-700 {
+    color: rgb(126 34 206);
+  }
+
+  .text-pink-700 {
+    color: rgb(190 24 93);
+  }
+
+  .text-indigo-700 {
+    color: rgb(67 56 202);
+  }
+
+  .text-cyan-700 {
+    color: rgb(14 116 144);
+  }
+
+  .text-teal-700 {
+    color: rgb(15 118 110);
+  }
+
+  .text-amber-700 {
+    color: rgb(180 83 9);
+  }
+
+  .text-rose-700 {
+    color: rgb(190 18 60);
+  }
+
+  .text-violet-700 {
+    color: rgb(109 40 217);
+  }
+
+  .text-sky-700 {
+    color: rgb(3 105 161);
+  }
+
+  .text-fuchsia-700 {
+    color: rgb(162 28 175);
+  }
+
+  .text-lime-700 {
+    color: rgb(77 124 15);
+  }
+
+  .text-orange-700 {
+    color: rgb(194 65 12);
+  }
+
+  .text-red-700 {
+    color: rgb(185 28 28);
+  }
+
+  .text-green-700 {
+    color: rgb(21 128 61);
+  }
+
+  .text-yellow-700 {
+    color: rgb(161 98 7);
+  }
+
+  .text-stone-700 {
+    color: rgb(68 64 60);
+  }
+
+  .text-zinc-700 {
+    color: rgb(63 63 70);
+  }
+
+  .text-slate-700 {
+    color: rgb(51 65 85);
+  }
+
+  /* Light mode borders */
+  .border-emerald-200 {
+    border-color: rgb(167 243 208);
+  }
+
+  .border-blue-200 {
+    border-color: rgb(191 219 254);
+  }
+
+  .border-purple-200 {
+    border-color: rgb(233 213 255);
+  }
+
+  .border-pink-200 {
+    border-color: rgb(251 207 232);
+  }
+
+  .border-indigo-200 {
+    border-color: rgb(199 210 254);
+  }
+
+  .border-cyan-200 {
+    border-color: rgb(165 243 252);
+  }
+
+  .border-teal-200 {
+    border-color: rgb(153 246 228);
+  }
+
+  .border-amber-200 {
+    border-color: rgb(253 230 138);
+  }
+
+  .border-rose-200 {
+    border-color: rgb(254 205 211);
+  }
+
+  .border-violet-200 {
+    border-color: rgb(221 214 254);
+  }
+
+  .border-sky-200 {
+    border-color: rgb(186 230 253);
+  }
+
+  .border-fuchsia-200 {
+    border-color: rgb(245 208 254);
+  }
+
+  .border-lime-200 {
+    border-color: rgb(217 249 157);
+  }
+
+  .border-orange-200 {
+    border-color: rgb(254 215 170);
+  }
+
+  .border-red-200 {
+    border-color: rgb(254 202 202);
+  }
+
+  .border-green-200 {
+    border-color: rgb(187 247 208);
+  }
+
+  .border-yellow-200 {
+    border-color: rgb(254 240 138);
+  }
+
+  .border-stone-200 {
+    border-color: rgb(231 229 228);
+  }
+
+  .border-zinc-200 {
+    border-color: rgb(228 228 231);
+  }
+
+  .border-slate-200 {
+    border-color: rgb(226 232 240);
+  }
+
+
+  /* Professional highlight accents */
+  .bg-emerald-500\/15 {
+    background-color: rgb(16 185 129 / 0.15);
+  }
+
+  .bg-cyan-500\/15 {
+    background-color: rgb(6 182 212 / 0.15);
+  }
+
+  .bg-amber-400\/35 {
+    background-color: rgb(251 191 36 / 0.35);
+  }
+
+  .bg-violet-500\/15 {
+    background-color: rgb(139 92 246 / 0.15);
+  }
+
+  .border-emerald-400 {
+    border-color: rgb(52 211 153);
+  }
+
+  .border-cyan-400 {
+    border-color: rgb(34 211 238);
+  }
+
+  .border-amber-500 {
+    border-color: rgb(245 158 11);
+  }
+
+  .border-violet-400 {
+    border-color: rgb(167 139 250);
+  }
+
+  .ring-emerald-300\/50 {
+    --tw-ring-color: rgb(110 231 183 / 0.5);
+  }
+
+  .ring-cyan-300\/50 {
+    --tw-ring-color: rgb(103 232 249 / 0.5);
+  }
+
+  .ring-amber-400\/60 {
+    --tw-ring-color: rgb(251 191 36 / 0.6);
+  }
+
+  .ring-violet-300\/50 {
+    --tw-ring-color: rgb(196 181 253 / 0.5);
+  }
+}
+
+@source "../../../cryptologicus/templates/**/*.html";
+@source "../../../cryptologicus/templates/cryptologicus/partials/**/*.html";
+@source "../../../templates/**/*.html";
+@source "../../../theme/templates/**/*.html";
+
+@layer components {
+  .font-heading {
+    @apply font-['Orbitron'];
+  }
+  .font-body {
+    @apply font-['roboto'];
+  }
+}

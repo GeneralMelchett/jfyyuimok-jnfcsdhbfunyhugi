@@ -1,0 +1,29 @@
+{% load wagtailcore_tags theme_filters %}
+{% with section_classes='sections.default'|theme_token:theme|default:'light' heading_class='text.heading_primary'|theme_token:theme|default:'light' body_class='text.body_secondary'|theme_token:theme|default:'light' accent_class='text.accent_primary'|theme_token:theme|default:'light' muted_class='text.body_secondary'|theme_token:theme|default:'light' %}
+<section id="latest-articles-section" class="py-16 md:py-24 lg:py-32 {{ section_classes }}">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="text-sm font-semibold tracking-widest uppercase mb-4 {{ accent_class }}">Fresh from the lab</p>
+      <h2 class="text-5xl md:text-6xl font-bold mb-6 font-heading {{ heading_class }}">Latest Articles</h2>
+      <p class="text-xl max-w-3xl mx-auto font-light {{ body_class }}">
+        Deep technical work — rendered straight from Markdown + CSV — covering passwords, randomness, systems design, and more.
+      </p>
+    </div>
+
+    {% if latest_articles %}
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="latest-articles-grid">
+        {% for article in latest_articles %}
+          {% with href=article.url title=article.title series_name=article.series_display series_url=article.get_series_url part_number=article.series_part difficulty=article.difficulty tags=article.tags_list persona=article.persona excerpt=article.summary_text|default:article.search_description|default:"" featured=False compact=False %}
+            {% include "cryptologicus/partials/cards/article_card.html" with theme=theme %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+      {% include "cryptologicus/partials/latest-articles-load-more.html" with next_page=latest_articles_next_page article_index_url=article_index_url %}
+    {% else %}
+      <p class="text-center {{ muted_class }}">
+        No articles have been published yet. Import Markdown + CSV via the publishing pipeline to populate this feed.
+      </p>
+    {% endif %}
+  </div>
+</section>
+{% endwith %}

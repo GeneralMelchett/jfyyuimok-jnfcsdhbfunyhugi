@@ -1,0 +1,35 @@
+{% comment %}
+Reusable series navigation block.
+
+Expects:
+- page: an ArticlePage
+- position: "top" or "bottom" (optional, for styling tweaks later)
+{% endcomment %}
+
+{% with prev=page.get_prev_in_series next=page.get_next_in_series %}
+  {% if prev or next %}
+    <nav class="border-t border-slate-700/70 mt-8 pt-4 flex items-center justify-between text-sm text-slate-200/90">
+      <div class="flex-1">
+        {% if prev %}
+          <a href="{{ prev.url }}" class="group inline-flex flex-col">
+            <span class="text-xs uppercase tracking-wide text-slate-400/80">Previous in series</span>
+            <span class="group-hover:text-cyan-300 transition-colors">
+              {{ prev.title }}
+            </span>
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="flex-1 text-right">
+        {% if next %}
+          <a href="{{ next.url }}" class="group inline-flex flex-col items-end">
+            <span class="text-xs uppercase tracking-wide text-slate-400/80">Next in series</span>
+            <span class="group-hover:text-cyan-300 transition-colors">
+              {{ next.title }}
+            </span>
+          </a>
+        {% endif %}
+      </div>
+    </nav>
+  {% endif %}
+{% endwith %}

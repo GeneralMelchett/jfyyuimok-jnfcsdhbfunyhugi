@@ -1,0 +1,93 @@
+{# Internal layout partial expects resolved props incl. href/title/series meta + theme colors #}
+<a href="{{ href|default:'#' }}"
+   class="group flex h-full flex-col rounded-xl {{ card_bg }} min-h-[320px] md:min-h-[360px] lg:min-h-[380px]
+          transition-all duration-500 ease-out transform-gpu will-change-transform hover:-translate-y-2 hover:scale-[1.01] hover:shadow-2xl
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
+  <div class="flex h-full flex-col p-6 md:p-8 space-y-4 {% if is_featured %}md:py-10 md:px-10{% endif %}">
+
+    {# Top meta row: Series & Meta Indicators #}
+    <div class="flex items-center justify-between">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.25em] {{ meta_color }} opacity-95"
+         style="font-family:'Roboto',sans-serif;">
+        {% if series_name %}
+          {{ series_name }}
+        {% else %}
+          Standalone
+        {% endif %}
+      </p>
+      {% if part_number %}
+        <span class="text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-400 opacity-80">
+          Part {{ part_number }}
+        </span>
+      {% endif %}
+    </div>
+
+    {# Title #}
+    <h3 class="{{ title_color }} font-heading font-bold leading-tight transition-colors duration-300
+               text-base md:text-xl lg:text-2xl
+               {% if is_featured %}md:text-3xl lg:text-4xl{% endif %}
+               group-hover:text-emerald-500"
+        style="font-family: 'Orbitron', sans-serif;">
+      {{ title }}
+    </h3>
+
+    {# Badges Row: Difficulty & Persona #}
+    <div class="flex flex-wrap items-center gap-3">
+      {% if difficulty %}
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border {{ title_color }} {{ badge_bg }} transition-transform transform hover:scale-105 hover:-translate-y-0.5">
+          {{ difficulty }}
+        </span>
+      {% endif %}
+      {% if persona %}
+        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-slate-500/10 text-slate-400 border border-slate-500/30 transition-transform transform hover:scale-105 hover:-translate-y-0.5">
+          {{ persona }}
+        </span>
+      {% endif %}
+    </div>
+
+    {% if excerpt %}
+      {# Excerpt #}
+      <p class="{{ body_color }} text-sm md:text-base leading-relaxed {% if is_compact %}line-clamp-2{% else %}{% if is_featured %}line-clamp-4{% else %}line-clamp-3{% endif %}{% endif %} flex-1 font-light"
+         style="font-family:'Roboto',sans-serif;">
+        {{ excerpt }}
+      </p>
+    {% else %}
+      <div class="flex-1"></div>
+    {% endif %}
+
+    {# Footer: Tags #}
+    <div class="mt-4 flex flex-col space-y-3">
+      <hr class="border-slate-200/60 dark:border-slate-600/20">
+      <div class="flex flex-wrap gap-2">
+        {% for tag in tags|slice:":3" %}
+          {% with tag_slug=tag|slugify %}
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide border
+              {% if tag_slug == 'cryptography' %}
+                bg-blue-500/20 text-blue-600 border-blue-500/40 transition-transform transform hover:scale-105
+              {% elif tag_slug == 'passwords' %}
+                bg-amber-500/20 text-amber-700 border-amber-500/40 transition-transform transform hover:scale-105
+              {% elif tag_slug == 'maths' %}
+                bg-purple-500/20 text-purple-600 border-purple-500/40 transition-transform transform hover:scale-105
+              {% elif tag_slug == 'primes' %}
+                bg-indigo-500/20 text-indigo-600 border-indigo-500/40 transition-transform transform hover:scale-105
+              {% elif tag_slug == 'rsa' %}
+                bg-fuchsia-500/20 text-fuchsia-600 border-fuchsia-500/40 transition-transform transform hover:scale-105
+              {% elif tag_slug == 'usability' %}
+                bg-emerald-500/20 text-emerald-700 border-emerald-500/40 transition-transform transform hover:scale-105
+              {% elif tag_slug == 'ctf' %}
+                bg-rose-500/20 text-rose-600 border-rose-500/40 transition-transform transform hover:scale-105
+              {% else %}
+                {% if title_color == 'text-white' %}
+                  bg-slate-700 text-white border-slate-600 transition-transform transform hover:scale-105
+                {% else %}
+                  bg-slate-100 text-slate-700 border-slate-200 transition-transform transform hover:scale-105
+                {% endif %}
+              {% endif %}">
+              {{ tag }}
+            </span>
+          {% endwith %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,80 @@
+{% if all_series or all_difficulties or all_tags %}
+<aside class="w-full lg:w-72 shrink-0 mb-8 lg:mb-0">
+  <div class="rounded-3xl bg-slate-50 border border-slate-200 p-5 shadow-card-soft">
+    <h2 class="text-sm font-semibold text-slate-900 mb-3"
+        style="font-family: 'Orbitron', sans-serif;">
+      Filter articles
+    </h2>
+
+    <div class="space-y-4 text-xs"
+         style="font-family: 'Roboto', sans-serif;">
+
+      {% if all_series %}
+        <div>
+          <p class="font-semibold text-slate-600 mb-1">Series</p>
+          <div class="flex flex-wrap gap-1">
+            <a href="?{% if active_filters.difficulty %}d={{ active_filters.difficulty }}&{% endif %}{% if active_filters.tag %}t={{ active_filters.tag }}&{% endif %}"
+               class="px-2 py-0.5 rounded-full border text-slate-500 text-[11px]
+                      {% if not active_filters.series %}
+                        bg-emerald-500/10 border-emerald-400 text-emerald-700
+                      {% endif %}">
+              All
+            </a>
+            {% for s in all_series %}
+              <a href="?s={{ s }}{% if active_filters.difficulty %}&d={{ active_filters.difficulty }}{% endif %}{% if active_filters.tag %}&t={{ active_filters.tag }}{% endif %}"
+                 class="px-2 py-0.5 rounded-full border text-slate-500 text-[11px]
+                        {% if active_filters.series == s %}
+                          bg-emerald-500/10 border-emerald-400 text-emerald-700
+                        {% endif %}">
+                {{ s }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if all_difficulties %}
+        <div>
+          <p class="font-semibold text-slate-600 mb-1">Difficulty</p>
+          <div class="flex flex-wrap gap-1">
+            <a href="?{% if active_filters.series %}s={{ active_filters.series }}&{% endif %}{% if active_filters.tag %}t={{ active_filters.tag }}&{% endif %}"
+               class="px-2 py-0.5 rounded-full border text-slate-500 text-[11px]
+                      {% if not active_filters.difficulty %}
+                        bg-emerald-500/10 border-emerald-400 text-emerald-700
+                      {% endif %}">
+              All
+            </a>
+            {% for d in all_difficulties %}
+              <a href="?{% if active_filters.series %}s={{ active_filters.series }}&{% endif %}d={{ d }}{% if active_filters.tag %}&t={{ active_filters.tag }}{% endif %}"
+                 class="px-2 py-0.5 rounded-full border text-slate-500 text-[11px]
+                        {% if active_filters.difficulty == d %}
+                          bg-emerald-500/10 border-emerald-400 text-emerald-700
+                        {% endif %}">
+                {{ d }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if all_tags %}
+        <div>
+          <p class="font-semibold text-slate-600 mb-1">Tags</p>
+          <div class="flex flex-wrap gap-1">
+            {% for t in all_tags %}
+              <a href="?{% if active_filters.series %}s={{ active_filters.series }}&{% endif %}{% if active_filters.difficulty %}d={{ active_filters.difficulty }}&{% endif %}t={{ t }}"
+                 class="px-2 py-0.5 rounded-full border text-slate-500 text-[11px]
+                        {% if active_filters.tag == t %}
+                          bg-emerald-500/10 border-emerald-400 text-emerald-700
+                        {% endif %}">
+                {{ t }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</aside>
+{% endif %}

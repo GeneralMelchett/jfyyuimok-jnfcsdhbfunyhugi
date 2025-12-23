@@ -1,0 +1,26 @@
+{# cryptologicus/partials/professional-highlights.html #}
+{% load theme_filters %}
+{% with section_classes='sections.highlights'|theme_token:theme|default:'light' icon_classes='badges.highlight_icon'|theme_token:theme|default:'light' card_classes='cards.story'|theme_token:theme|default:'light' title_class='text.heading_primary'|theme_token:theme|default:'light' body_class='text.body_secondary'|theme_token:theme|default:'light' accent_class='text.accent_primary'|theme_token:theme|default:'light' %}
+<section id="professional-highlights" class="py-16 md:py-24 {{ section_classes }}">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="mb-12 text-center">
+      <p class="text-xs font-semibold tracking-[0.35em] uppercase mb-3 {{ accent_class }}">Credentials</p>
+      <h2 class="text-3xl sm:text-4xl font-bold font-heading tracking-tight {{ title_class }}">Professional Highlights</h2>
+      <p class="text-base sm:text-lg mt-4 max-w-2xl mx-auto font-light {{ body_class }}">
+        Proof points from two decades of building and defending large-scale systems.
+      </p>
+    </header>
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      {% for highlight in highlights %}
+        <div class="rounded-3xl px-6 py-10 flex flex-col items-center text-center {{ card_classes }}">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full {{ icon_classes }}">
+            {% include "cryptologicus/partials/svg/icon-"|add:highlight.icon|add:".html" %}
+          </div>
+          <h3 class="text-lg font-semibold mb-2 {{ title_class }}">{{ highlight.title }}</h3>
+          <p class="text-sm max-w-xs {{ body_class }}">{{ highlight.body }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endwith %}

@@ -1,0 +1,63 @@
+{% load wagtailcore_tags %}
+
+{% if page.has_series %}
+<aside class="hidden lg:block lg:w-80 shrink-0">
+  <div class="rounded-3xl bg-slate-50 border border-slate-200 p-5 shadow-card-soft">
+    <p class="text-xs font-semibold uppercase tracking-wide text-emerald-600 mb-2"
+       style="font-family: 'Roboto', sans-serif;">
+      Series
+    </p>
+    <h2 class="text-lg font-semibold text-slate-900 mb-4"
+        style="font-family: 'Orbitron', sans-serif;">
+      {{ page.series|title }}
+    </h2>
+
+    <ol class="space-y-1 text-sm"
+        style="font-family: 'Roboto', sans-serif;">
+      {% for part in page.get_series_queryset %}
+        <li class="flex items-center gap-2">
+          <span class="inline-flex h-6 w-6 items-center justify-center rounded-full text-xs
+                       {% if part.id == page.id %}
+                          bg-emerald-500 text-white
+                       {% else %}
+                          bg-slate-200 text-slate-700
+                       {% endif %}">
+            {{ part.series_part|default:"–" }}
+          </span>
+          {% if part.id == page.id %}
+            <span class="font-semibold text-slate-900">
+              {{ part.title }}
+            </span>
+          {% else %}
+            <a href="{{ part.url }}" class="text-slate-600 hover:text-emerald-600">
+              {{ part.title }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+
+    <div class="mt-5 pt-4 border-t border-slate-200 flex justify-between text-xs">
+      {% with prev=page.get_prev_in_series next=page.get_next_in_series %}
+        {% if prev %}
+          <a href="{{ prev.url }}" class="inline-flex items-center gap-1 text-slate-500 hover:text-emerald-600">
+            <span aria-hidden="true">←</span>
+            Part {{ prev.series_part }}
+          </a>
+        {% else %}
+          <span class="text-slate-300">Start</span>
+        {% endif %}
+
+        {% if next %}
+          <a href="{{ next.url }}" class="inline-flex items-center gap-1 text-slate-500 hover:text-emerald-600">
+            Part {{ next.series_part }}
+            <span aria-hidden="true">→</span>
+          </a>
+        {% else %}
+          <span class="text-slate-300">End</span>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+</aside>
+{% endif %}

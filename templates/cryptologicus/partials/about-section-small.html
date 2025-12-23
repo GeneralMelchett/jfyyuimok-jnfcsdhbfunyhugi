@@ -1,0 +1,34 @@
+{% load static theme_filters %}
+{% with section_classes='sections.about'|theme_token:theme|default:'light' title_class='text.heading_primary'|theme_token:theme|default:'light' body_class='text.body_primary'|theme_token:theme|default:'light' emphasis_class='text.emphasis'|theme_token:theme|default:'light' primary_button='buttons.primary'|theme_token:theme|default:'light' secondary_button='buttons.secondary'|theme_token:theme|default:'light' %}
+<section class="py-20 border-t {{ section_classes }}">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-heading {{ title_class }}">
+        About Cryptologicus
+      </h2>
+
+      <p class="text-base md:text-lg leading-relaxed mb-4 font-body font-light {{ body_class }}">
+        Cryptologicus is written by a security architect with 25 years of real-world experience,
+        for people who want to <em>understand</em> security rather than repeat whatever checklist
+        is fashionable this quarter. Expect deep dives into cryptography, randomness, cloud
+        architecture, attack mechanics and practical coding projects—explained scientifically,
+        plainly, and with a sense of humour.
+      </p>
+
+      <p class="text-base md:text-lg font-medium mb-10 {{ emphasis_class }}">
+        Guaranteed 100% free of corporate waffle, buzzword soup, and marketing fairy dust.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#about" class="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm md:text-base font-semibold shadow-md transition-all {{ primary_button }}">
+          Read the full story
+        </a>
+
+        <a href="#latest-articles" class="inline-flex items-center justify-center rounded-full px-8 py-3 text-sm md:text-base font-semibold transition-all {{ secondary_button }}">
+          Browse the articles
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endwith %}

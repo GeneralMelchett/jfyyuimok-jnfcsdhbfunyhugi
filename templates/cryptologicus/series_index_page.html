@@ -1,0 +1,36 @@
+{% extends "cryptologicus/base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}Series – Cryptologicus{% endblock %}
+
+{% block content %}
+<main class="py-12 md:py-16 bg-slate-50">
+  <div class="container mx-auto px-4">
+
+    <header class="mb-8 md:mb-10 max-w-3xl">
+      <h1 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3"
+          style="font-family: 'Orbitron', sans-serif;">
+        Series
+      </h1>
+      <p class="text-sm md:text-base text-slate-600"
+         style="font-family: 'Roboto', sans-serif;">
+        Explore Cryptologicus by series: multi-part deep dives that follow a structured
+        narrative — like the Password Primer, randomness, PKI, and more as they emerge.
+      </p>
+    </header>
+
+    {% if series_list %}
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+{% for s in series_list %}
+  {% include "cryptologicus/partials/cards/series_card.html" with series=s %}
+{% endfor %}
+      </div>
+    {% else %}
+      <p class="text-sm text-slate-500"
+         style="font-family: 'Roboto', sans-serif;">
+        No series found yet. Once your multi-part articles are imported, they’ll appear here.
+      </p>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

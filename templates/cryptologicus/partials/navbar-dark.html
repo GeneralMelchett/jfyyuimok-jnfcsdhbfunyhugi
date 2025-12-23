@@ -1,0 +1,183 @@
+{% load static %}
+<section
+  x-data="{
+    init() {
+      if ($store.ui.mobileDrawerOpen === undefined) {
+        $store.ui.mobileDrawerOpen = false;
+      }
+      document.documentElement.dataset.theme = $store.ui.theme;
+      this.$watch('$store.ui.theme', value => document.documentElement.dataset.theme = value);
+    },
+    get theme() { return $store.ui.theme },
+    toggleTheme() { $store.ui.toggleTheme() },
+    get mobileNavOpen() { return $store.ui.mobileDrawerOpen },
+    set mobileNavOpen(value) { $store.ui.mobileDrawerOpen = value }
+  }"
+  x-init="init()"
+  @keydown.escape.window="mobileNavOpen = false"
+>
+  <nav
+    :class="theme === 'dark'
+      ? 'relative bg-slate-950/80 text-slate-100 backdrop-blur-xl border-b border-emerald-400/10 shadow-[0_20px_45px_rgba(15,23,42,0.6)]'
+      : 'relative bg-white/85 text-slate-900 backdrop-blur-xl border-b border-emerald-500/20 shadow-[0_25px_55px_rgba(15,23,42,0.12)]'"
+  >
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between gap-4 py-5">
+        <a href="/" class="flex items-center space-x-3">
+          <img
+            src="{% static 'images/old-cryptologicusbannerwhtra-at-2x.png' %}"
+            alt="Cryptologicus"
+            class="h-9 w-auto drop-shadow-[0_5px_12px_rgba(16,185,129,0.35)]"
+          />
+          <span
+            class="hidden sm:block text-sm tracking-[0.45em] uppercase font-semibold"
+            :class="theme === 'dark' ? 'text-emerald-300' : 'text-emerald-600'"
+          >
+            Signal
+          </span>
+        </a>
+
+        <ul class="hidden lg:flex items-center space-x-10 text-sm font-heading uppercase tracking-[0.25em]">
+          {% for item in [
+            ('Articles', '#latest-articles'),
+            ('Series', '#series'),
+            ('Categories', '#categories'),
+            ('Projects', '#projects'),
+            ('About', '#about')
+          ] %}
+            <li class="group">
+              <a
+                href="{{ item.1 }}"
+                class="relative px-1 transition-all duration-200"
+                :class="theme === 'dark'
+                  ? 'text-slate-200 hover:text-emerald-300 focus-visible:text-emerald-300'
+                  : 'text-slate-700 hover:text-emerald-600 focus-visible:text-emerald-600'"
+              >
+                <span>{{ item.0 }}</span>
+                <span
+                  class="absolute left-0 bottom-[-6px] h-0.5 w-full origin-center scale-x-0 transition-transform duration-200"
+                  :class="theme === 'dark'
+                    ? 'bg-gradient-to-r from-emerald-400/0 via-emerald-300/70 to-emerald-400/0 group-hover:scale-x-100'
+                    : 'bg-gradient-to-r from-emerald-500/0 via-emerald-500/70 to-emerald-500/0 group-hover:scale-x-100'"
+                ></span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <div class="hidden lg:block">
+          <label class="sr-only" for="nav-search-desktop">Search</label>
+          <div
+            class="group flex items-center rounded-full px-4 py-2 shadow-inner focus-within:ring-1 focus-within:ring-emerald-400/60 transition"
+            :class="theme === 'dark'
+              ? 'border border-slate-700/60 bg-slate-900/70 shadow-black/40'
+              : 'border border-slate-200 bg-white/70 shadow-slate-400/20'"
+          >
+            <svg class="w-4 h-4 mr-3" :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+            </svg>
+            <input
+              id="nav-search-desktop"
+              type="search"
+              name="q"
+              class="bg-transparent text-sm focus:outline-none flex-1"
+              :class="theme === 'dark' ? 'text-slate-100 placeholder-slate-500' : 'text-slate-900 placeholder-slate-400'"
+              placeholder="Search the archives"
+            />
+            <kbd
+              class="text-[10px] uppercase tracking-[0.3em] border rounded px-2 py-0.5 ml-3"
+              :class="theme === 'dark' ? 'text-slate-500 border-slate-700' : 'text-slate-500 border-slate-200'"
+            >⌘K</kbd>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            :class="theme === 'dark'
+              ? 'border border-emerald-300/50 text-emerald-100 hover:bg-emerald-400/10 focus-visible:outline-emerald-300/70'
+              : 'border border-slate-900/20 text-slate-900 hover:bg-slate-900/5 focus-visible:outline-slate-900/40'"
+            @click="toggleTheme()"
+            :aria-pressed="(theme === 'dark').toString()"
+            x-text="theme === 'dark' ? 'Light mode' : 'Dark mode'"
+          ></button>
+
+            <button
+              class="lg:hidden inline-flex items-center justify-center rounded-full p-2.5 transition-colors border"
+              :class="theme === 'dark'
+                ? 'border-slate-700/70 text-slate-100 hover:text-emerald-300 hover:border-emerald-400'
+                : 'border-slate-300 text-slate-900 hover:text-emerald-600 hover:border-emerald-400'"
+              @click="mobileNavOpen = !mobileNavOpen"
+              :aria-expanded="mobileNavOpen.toString()"
+              aria-controls="mobile-nav-drawer"
+              aria-label="Toggle navigation"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+        </div>
+      </div>
+
+      <div
+        id="mobile-nav-drawer"
+        x-cloak
+        x-show="mobileNavOpen"
+        x-transition:enter="duration-200 ease-out"
+        x-transition:enter-start="opacity-0 -translate-y-3 scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+        x-transition:leave="duration-150 ease-in"
+        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+        x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+        @click.outside="mobileNavOpen = false"
+        :class="theme === 'dark'
+          ? 'lg:hidden rounded-3xl border border-slate-800 bg-slate-950/95 backdrop-blur-xl shadow-[0_20px_60px_rgba(2,6,23,0.9)] p-6 space-y-4 mb-6'
+          : 'lg:hidden rounded-3xl border border-slate-200 bg-white/95 backdrop-blur-xl shadow-[0_25px_55px_rgba(15,23,42,0.12)] p-6 space-y-4 mb-6'"
+      >
+        <div class="space-y-2">
+          {% for item in [
+            ('Articles', '#latest-articles'),
+            ('Series', '#series'),
+            ('Categories', '#categories'),
+            ('Projects', '#projects'),
+            ('About', '#about')
+          ] %}
+            <a
+              href="{{ item.1 }}"
+              @click="mobileNavOpen = false"
+              class="block rounded-2xl border px-4 py-3 text-sm font-heading uppercase tracking-[0.25em] transition"
+              :class="theme === 'dark'
+                ? 'bg-slate-900/60 border-slate-800 text-slate-200 hover:text-emerald-300 hover:border-emerald-400'
+                : 'bg-white border-slate-200 text-slate-800 hover:text-emerald-600 hover:border-emerald-400'"
+            >
+              {{ item.0 }}
+            </a>
+          {% endfor %}
+        </div>
+
+        <div class="pt-4 border-t" :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-200'">
+          <label class="sr-only" for="nav-search-mobile">Search</label>
+          <div
+            class="flex items-center rounded-2xl border px-4 py-3 shadow-inner"
+            :class="theme === 'dark'
+              ? 'border-slate-800 bg-slate-900/70 shadow-black/40'
+              : 'border-slate-200 bg-white shadow-slate-400/10'"
+          >
+            <svg class="w-4 h-4 mr-3" :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+            </svg>
+            <input
+              id="nav-search-mobile"
+              type="search"
+              name="q"
+              class="bg-transparent text-sm flex-1 focus:outline-none"
+              :class="theme === 'dark' ? 'text-slate-100 placeholder-slate-600' : 'text-slate-900 placeholder-slate-400'"
+              placeholder="Search the archives"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</section>

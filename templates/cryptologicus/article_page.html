@@ -1,0 +1,115 @@
+{# cryptologicus/templates/cryptologicus/article_page.html #}
+{% extends "cryptologicus/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if page.layout_hint == "lab" %}
+    {% with "max-w-7xl" as article_width %}
+    {% endwith %}
+{% elif page.layout_hint == "series_intro" %}
+    {% with "max-w-5xl" as article_width %}
+    {% endwith %}
+{% else %}
+    {% with "max-w-4xl" as article_width %}
+    {% endwith %}
+{% endif %}
+
+{% block title %}{{ page.seo_title|default:page.title }} – Cryptologicus{% endblock %}
+
+{% block content %}
+<main class="py-10 md:py-14">
+  <div class="max-w-5xl mx-auto px-4 lg:px-6 space-y-8">
+
+    {# ───────────── Breadcrumbs ───────────── #}
+    <nav class="text-[11px] md:text-xs text-slate-400 flex items-center gap-1">
+      <a href="/" class="hover:text-emerald-400 transition-colors">Home</a>
+      <span class="opacity-60">/</span>
+      <span class="text-slate-300">{{ page.series|default:"Article" }}</span>
+    </nav>
+
+    {# ───────────── Heading band ───────────── #}
+    <header class="space-y-4">
+      {% if page.series %}
+        <p class="text-[11px] tracking-[0.18em] uppercase text-emerald-400 font-semibold">
+          {{ page.series }}
+          {% if page.series_part is not None %}
+            · Part {{ page.series_part }}
+          {% endif %}
+        </p>
+      {% endif %}
+
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-50 font-heading">
+        {{ page.title }}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-3 text-[11px] md:text-xs text-slate-400">
+        {% if page.difficulty %}
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full border border-amber-400/60 bg-amber-500/10 text-amber-200 font-semibold">
+            {{ page.difficulty }}
+          </span>
+        {% endif %}
+
+        {% if page.persona %}
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full border border-slate-600/70 bg-slate-900/60">
+            {{ page.persona }}
+          </span>
+        {% endif %}
+
+        {% if page.first_published_at %}
+          <span class="ml-auto text-slate-500">
+            {{ page.first_published_at|date:"j M Y" }}
+          </span>
+        {% endif %}
+      </div>
+    </header>
+
+    {# ───────────── Optional intro / summary ───────────── #}
+    {% if page.search_description %}
+      <section class="bg-slate-900/60 border border-slate-800 rounded-2xl px-4 md:px-6 py-4 md:py-5">
+        <p class="text-sm md:text-base text-slate-200 leading-relaxed">
+          {{ page.search_description }}
+        </p>
+      </section>
+    {% endif %}
+
+    {# ───────────── Article body ───────────── #}
+<main class="w-full mt-8">
+  <article
+    class="mx-auto w-full {{ article_width }}
+           bg-slate-950/40 border border-slate-800/80 rounded-3xl shadow-lg shadow-black/40
+           px-6 md:px-10 py-8 md:py-12">
+      <div class="px-5 md:px-7 lg:px-10 py-7 md:py-9">
+        <div class="prose prose-invert prose-slate max-w-none
+                    prose-headings:font-heading prose-headings:tracking-tight
+                    prose-a:text-emerald-300 prose-a:no-underline hover:prose-a:text-emerald-200
+                    prose-code:text-emerald-200 prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800
+                    prose-strong:text-slate-50
+                    prose-blockquote:border-l-4 prose-blockquote:border-emerald-500/60 prose-blockquote:text-slate-100">
+          {# page.body is a StreamField; render each block #}
+          {% for block in page.body %}
+            {% include_block block %}
+          {% endfor %}
+        </div>
+      </div>
+    </article>
+
+    {# ───────────── Footer: tags + “back” link ───────────── #}
+    <footer class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-900/80">
+      <div class="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+        {% if page.tags.all %}
+          <span class="font-semibold text-slate-300 mr-1">Tags:</span>
+          <div class="flex flex-wrap gap-2">
+            {% for tag in page.tags.all %}
+              <span class="px-3 py-1 rounded-full bg-slate-900/60 border border-slate-700 text-slate-200">
+                {{ tag.name }}
+              </span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <a href="/" class="text-xs md:text-sm text-emerald-300 hover:text-emerald-200 inline-flex items-center gap-1">
+        ← Back to home
+      </a>
+    </footer>
+  </div>
+</main>
+{% endblock %}

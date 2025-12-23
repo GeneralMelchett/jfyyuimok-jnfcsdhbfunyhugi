@@ -1,0 +1,49 @@
+{# cryptologicus/templates/cryptologicus/home_page.html #}
+{% extends "cryptologicus/base.html" %}
+{% load wagtailcore_tags static %}
+
+{% block title %}Cryptologicus{% endblock %}
+
+{% block content %}
+
+  <div x-data="{ currentTheme: $store.ui.theme }" x-init="$watch('$store.ui.theme', value => currentTheme = value)">
+    <div class="relative w-full overflow-hidden">
+      <!-- Background image for both Hero and Featured -->
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{% static 'images/green-banner-bgng.png' %}')"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/70 to-slate-950"></div>
+      </div>
+
+      {% include "cryptologicus/partials/hero-matrix-dark.html" %}
+
+      <section id="featured" class="relative z-10">
+        {% include "cryptologicus/partials/featured-articles.html" with theme=currentTheme %}
+      </section>
+    </div>
+
+    <div id="highlights" class="bg-slate-50 border-y border-slate-200">
+      {% include "cryptologicus/partials/professional-highlights.html" with highlights=professional_highlights theme=currentTheme %}
+    </div>
+
+    <div id="latest-articles">
+      {% include "cryptologicus/partials/latest-articles.html" with theme=currentTheme %}
+    </div>
+
+    <div id="series" class="bg-slate-50 border-y border-slate-200">
+      {% include "cryptologicus/partials/explore-series.html" with theme=currentTheme %}
+    </div>
+
+    <div id="about" class="bg-white dark:bg-slate-950">
+      {% include "cryptologicus/partials/birth-of-cryptologicus.html" with theme=currentTheme %}
+      <div class="mt-24">
+        {% include "cryptologicus/partials/about-section-small.html" with theme=currentTheme %}
+      </div>
+    </div>
+
+    <div id="categories"></div>
+    <div id="projects"></div>
+    <div id="contact"></div>
+    <div id="disclaimer"></div>
+  </div>
+
+{% endblock %}

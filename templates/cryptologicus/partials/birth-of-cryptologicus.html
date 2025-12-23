@@ -1,0 +1,72 @@
+{% load static theme_filters %}
+{% with section_classes='sections.story'|theme_token:theme|default:'light' story_card='cards.story'|theme_token:theme|default:'light' cta_card='cards.cta'|theme_token:theme|default:'light' icon_classes='badges.story_icon'|theme_token:theme|default:'light' title_class='text.heading_primary'|theme_token:theme|default:'light' body_class='text.body_primary'|theme_token:theme|default:'light' emphasis_class='text.emphasis'|theme_token:theme|default:'light' primary_button='buttons.primary'|theme_token:theme|default:'light' secondary_button='buttons.secondary'|theme_token:theme|default:'light' %}
+<section class="py-16 {{ section_classes }}">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <!-- Birth of Cryptologicus card -->
+    <article class="rounded-3xl p-6 sm:p-8 lg:p-10 {{ story_card }}">
+      <header class="flex items-start gap-4 mb-6">
+        <div class="flex h-11 w-11 items-center justify-center rounded-full {{ icon_classes }}">
+          <!-- simple "user" icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"></path>
+            <path d="M4 20a8 8 0 0 1 16 0"></path>
+          </svg>
+        </div>
+        <div>
+          <h2 id="birth-of-cryptologicus" class="text-2xl sm:text-3xl font-semibold tracking-tight font-heading {{ title_class }}">
+            The Birth of Cryptologicus
+          </h2>
+        </div>
+      </header>
+
+      <div class="space-y-4 leading-relaxed font-body {{ body_class }}">
+        <p>
+          It all started when my nephew Sam, studying computer science at university, asked me a technical
+          question about a web protocol. When I gave him an answer, he immediately challenged it—not because
+          he knew better, but because <span class="font-semibold">a guy on YouTube disagreed with me.</span>
+        </p>
+
+        <p>
+          "Why do you think that guy is right and I'm not?" I asked. "Is it just because he made a video?"
+          By the expression on his face, I could tell that's exactly why he trusted the YouTuber—and that he
+          realized how flawed that reasoning was.
+        </p>
+
+        <p>
+          "Well, that guy is no different from me," I told him. "In fact, he likely knows less than I do.
+          I've probably been doing this stuff longer, my experience is more varied, and I know this like the
+          back of my hand." Sam's retort was perfect:
+          <span class="font-semibold">"Well, he's got a website and you haven't."</span>
+        </p>
+
+        <p class="font-semibold {{ emphasis_class }}">
+          Touché. My immediate reaction was: "Well, not for much longer, he hasn't."
+          And that's how Cryptologicus was born.
+        </p>
+      </div>
+    </article>
+
+    <!-- Ready to Learn More card -->
+    <div class="rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 {{ cta_card }}">
+      <div>
+        <h3 class="text-xl sm:text-2xl font-semibold tracking-tight mb-2 font-heading {{ title_class }}">
+          Ready to Learn More?
+        </h3>
+        <p class="max-w-xl font-body {{ body_class }}">
+          Discover my complete background, the fascinating topics we'll explore, and the story behind making
+          cybersecurity accessible to everyone.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="#about-author" class="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 {{ primary_button }}">
+          About the Author
+          <span class="ml-2" aria-hidden="true">→</span>
+        </a>
+        <a href="#my-story" class="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 {{ secondary_button }}">
+          My Story
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endwith %}

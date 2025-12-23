@@ -1,0 +1,6 @@
+{% for article in articles %}
+  {% with href=article.url title=article.title series_name=article.series_display series_url=article.get_series_url part_number=article.series_part difficulty=article.difficulty tags=article.tags_list persona=article.persona excerpt=article.summary_text|default:article.search_description|default:"" theme="light" featured=False compact=False %}
+    {% include "cryptologicus/partials/cards/article_card.html" %}
+  {% endwith %}
+{% endfor %}
+{% include "cryptologicus/partials/latest-articles-load-more.html" with next_page=next_page article_index_url=article_index_url hx_oob=True %}

@@ -1,0 +1,28 @@
+{% load wagtailcore_tags static theme_filters %}
+{% with section_classes='sections.featured'|theme_token:theme heading_class='text.heading_primary'|theme_token:theme body_class='text.body_secondary'|theme_token:theme accent_class='text.accent_primary'|theme_token:theme muted_class='text.body_secondary'|theme_token:theme %}
+<section class="relative py-16 md:py-24 lg:py-32 {{ section_classes }}">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <p class="text-sm font-semibold tracking-widest uppercase mb-4 {{ accent_class }}">Editor's Picks</p>
+      <h2 class="text-5xl md:6xl font-bold mb-6 font-heading {{ heading_class }}">Featured Articles</h2>
+      <p class="text-xl max-w-3xl mx-auto font-light {{ body_class }}">
+        Hand-picked deep dives into cryptography, systems design, and technical exploration.
+      </p>
+    </div>
+
+    {% if featured_articles %}
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        {% for article in featured_articles %}
+          {% with href=article.url title=article.title series_name=article.series_display series_url=article.get_series_url part_number=article.series_part difficulty=article.difficulty tags=article.tags_list persona=article.persona excerpt=article.summary_text|default:article.search_description|default:"" featured=True %}
+            {% include "cryptologicus/partials/cards/article_card.html" with theme=theme %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center max-w-2xl mx-auto {{ muted_class }}">
+        No featured articles are flagged yet. Mark key articles with <code class="text-emerald-500">featured</code> in <code class="text-emerald-500">article_plan.csv</code> to light this section up.
+      </p>
+    {% endif %}
+  </div>
+</section>
+{% endwith %}

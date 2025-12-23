@@ -1,0 +1,32 @@
+{% load theme_filters %}
+{% with section_classes='sections.series'|theme_token:theme|default:'light' title_class='text.heading_primary'|theme_token:theme|default:'light' body_class='text.body_secondary'|theme_token:theme|default:'light' accent_class='text.accent_primary'|theme_token:theme|default:'light' %}
+<section id="series-intros" class="py-32 md:py-48 lg:py-56 {{ section_classes }}">
+  <div class="container mx-auto px-4">
+    <div class="mb-16 md:mb-20 text-center">
+      <p class="text-xs font-semibold tracking-[0.4em] uppercase mb-4 {{ accent_class }}" style="font-family: 'Roboto', sans-serif;">
+        Start here
+      </p>
+      <h2 class="text-4xl md:text-5xl font-bold font-heading tracking-tight {{ title_class }}">
+        Explore the Series
+      </h2>
+      <p class="text-base md:text-lg max-w-3xl mx-auto mt-4 font-light {{ body_class }}" style="font-family: 'Roboto', sans-serif;">
+        Structured entry points driven entirely by <code class="text-emerald-500">is_series_intro</code>
+        metadata so new readers can follow a guided arc.
+      </p>
+    </div>
+
+    {% if series_intro_cards %}
+      <div class="grid gap-12 md:grid-cols-2 xl:grid-cols-3">
+        {% for series in series_intro_cards %}
+          {% include "cryptologicus/partials/cards/series_card.html" with series=series theme=theme %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-sm text-center {{ body_class }}" style="font-family: 'Roboto', sans-serif;">
+        No series intros are available yet. Flag an ArticlePage with <code>is_series_intro = true</code>
+        to populate this section automatically.
+      </p>
+    {% endif %}
+  </div>
+</section>
+{% endwith %}

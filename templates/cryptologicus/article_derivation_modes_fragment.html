@@ -1,0 +1,67 @@
+{# cryptologicus/templates/cryptologicus/article_derivation_modes_fragment.html #}
+{% load wagtailcore_tags %}
+
+<div class="space-y-4">
+  {% if visible_steps %}
+    <ol class="space-y-3 list-decimal list-inside">
+      {% for block in visible_steps %}
+        {% with step=block.value %}
+        <li class="pl-1">
+          {% if step.label %}
+            <p class="font-semibold text-sm mb-1">
+              {{ step.label }}
+            </p>
+          {% endif %}
+          <div class="prose prose-invert max-w-none text-sm">
+            {{ step.explanation|richtext }}
+          </div>
+        </li>
+        {% endwith %}
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p class="text-xs text-slate-400">
+      No {{ mode }} derivation steps have been defined for this article yet.
+    </p>
+  {% endif %}
+
+  <div class="flex items-center justify-between mt-3 text-xs text-slate-400">
+    <span>
+      {% if total_steps %}
+        Showing {{ visible_steps|length }} of {{ total_steps }} step{{ total_steps|pluralize }}
+      {% endif %}
+    </span>
+
+    <div class="space-x-2">
+      {% if has_more and next_up_to %}
+        <button
+          type="button"
+          hx-get="{{ page.url }}derivation/?mode={{ mode }}&up_to={{ next_up_to }}"
+          hx-target="#derivation-slot"
+          hx-swap="innerHTML"
+          class="px-3 py-1.5 rounded bg-slate-800 border border-slate-700 hover:border-emerald-500 text-[11px]"
+        >
+          Next step
+        </button>
+      {% endif %}
+
+      {% if total_steps and visible_steps|length < total_steps %}
+        <button
+          type="button"
+          hx-get="{{ page.url }}derivation/?mode={{ mode }}&up_to={{ total_steps }}"
+          hx-target="#derivation-slot"
+          hx-swap="innerHTML"
+          class="px-3 py-1.5 rounded border border-slate-700 hover:border-emerald-500 text-[11px]"
+        >
+          Show all
+        </button>
+      {% endif %}
+
+      {% if total_steps and not has_more %}
+        <span class="text-emerald-400">
+          Derivation complete.
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</div>
